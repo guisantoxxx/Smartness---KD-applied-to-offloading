@@ -1,0 +1,59 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: crosskd-cqi-loss-test
+  namespace: aurora
+spec:
+  template:
+    metadata:
+      name: crosskd-cqi-loss-test
+      labels:
+        project: aurora
+        erc-job-type: batch
+    spec:
+      containers:
+      - name: crosskd-test
+        image: registry.researchcloud.internal.ericsson.com/egsinau-test/cqi-test:v1
+        volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+        env:
+        - name: HF_HOME
+          value: /tmp/hf_cache
+        - name: CUDA_LAUNCH_BLOCKING
+          value: "1"
+        resources:
+          requests:
+            memory: "16Gi"
+            cpu: "2"       # <= mínimo garantido de 2 CPUs
+          limits:
+            memory: "32Gi"
+            cpu: "4"       # <= pode usar até 4 CPUs
+            nvidia.com/gpu: 1
+      volumes:
+      - name: tmp-volume
+        emptyDir: {}
+      tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+      - key: ericsson.com/lund
+        operator: Exists
+        effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: nvidia.com/gpu.product
+                operator: In
+                values:
+                - NVIDIA-A30-MIG-4g.24gb
+              - key: nvidia.com/gpu.memory
+                operator: Gt
+                values:
+                - "23000"
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: egsinau
+  backoffLimit: 1

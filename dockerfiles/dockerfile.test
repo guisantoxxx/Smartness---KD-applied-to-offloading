@@ -1,0 +1,10 @@
+FROM crosskd-test:v1
+
+WORKDIR /workspace
+COPY . .
+
+WORKDIR /workspace//CrossKD
+
+RUN chmod -R a+rX /workspace && chmod +x /workspace/CrossKD/tools/test.py
+
+CMD ["python3", "-u", "/workspace/CrossKD/tools/test.py", "/workspace/CrossKD/configs/crosskd/gfl_test_config.py", "/proj/aurora/Smartness/checkpoints-CQI/epoch_12.pth", "--work-dir", "/proj/aurora/Smartness/test"]

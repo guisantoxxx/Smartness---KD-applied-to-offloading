@@ -1,0 +1,16 @@
+FROM download-coco:v1
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV MPLCONFIGDIR=/tmp/matplotlib
+ENV XDG_CACHE_HOME=/tmp/.cache
+ENV TRANSFORMERS_CACHE=/tmp/huggingface
+ENV TORCH_HOME=/tmp/torch
+
+WORKDIR /workspace
+COPY . .
+
+WORKDIR /workspace/CrossKD
+RUN chmod -R a+rX /workspace \
+    && chmod +x tools/misc/download_dataset.py
+
+CMD ["bash","-c","if [ ! -d /proj/aurora/Smartness/data/coco/train2017 ]; then echo 'Downloading COCO dataset...'; python3 tools/misc/download_dataset.py --dataset-name coco2017 --save-dir /proj/aurora/Smartness/data/coco --unzip --delete; else echo 'COCO dataset already exists, skipping download.'; fi"]

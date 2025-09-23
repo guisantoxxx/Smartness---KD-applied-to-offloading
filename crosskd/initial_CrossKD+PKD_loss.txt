@@ -1,0 +1,2 @@
+08/22 17:34:55 - mmengine - INFO - Epoch(train)  [1][  150/58633]  lr: 3.7412e-04  eta: 4 days, 8:30:13  time: 0.5029  data_time: 0.0069  memory: 4632  loss: 34.1484  loss_cls: 0.5435  loss_bbox: 1.1012  loss_dfl: 0.5238  loss_cls_kd: 2.8727  loss_reg_kd: 3.1959  loss_feat_kd: 25.9112
+08/22 17:35:20 - mmengine - INFO - Epoch(train)  [1][  200/58633]  lr: 4.9925e-04  eta: 4 days, 6:25:38  time: 0.4925  data_time: 0.0061  memory: 4632  loss: 31.4693  loss_cls: 0.6594  loss_bbox: 1.0388  loss_dfl: 0.5211  loss_cls_kd: 2.9015  loss_reg_kd: 2.9215  loss_feat_kd: 23.4270

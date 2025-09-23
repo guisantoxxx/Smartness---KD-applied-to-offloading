@@ -1,0 +1,14 @@
+FROM custom_loss:v1
+
+
+WORKDIR /workspace
+COPY . .
+
+#RUN apt-get update && apt-get install -y iputils-ping
+
+
+WORKDIR /workspace//CrossKD
+
+RUN chmod -R a+rX /workspace && chmod +x /workspace/CrossKD/tools/train.py
+
+CMD ["python3", "-u", "/workspace/CrossKD/tools/train.py", "/workspace/CrossKD/configs/crosskd/test_config.py", "--work-dir", "/proj/aurora/Smartness/custom_loss"]

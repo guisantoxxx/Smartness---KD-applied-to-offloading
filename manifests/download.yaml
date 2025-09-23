@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: download-coco
+  namespace: aurora
+spec:
+  template:
+    metadata:
+      name: download-coco
+      labels:
+        project: aurora
+        erc-job-type: batch
+    spec:
+      containers:
+      - name: download-coco
+        image: registry.researchcloud.internal.ericsson.com/egsinau-test/download-coco:v1
+        volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+        resources:
+          requests:
+            memory: "16Gi"
+            cpu: "2"       # <= mínimo garantido de 2 CPUs
+          limits:
+            memory: "32Gi"
+            cpu: "4"       # <= pode usar até 4 CPUs
+            nvidia.com/gpu: 1
+      volumes:
+      - name: tmp-volume
+        emptyDir: {}
+      tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+      - key: ericsson.com/lund
+        operator: Exists
+        effect: NoSchedule
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: egsinau
+  backoffLimit: 1

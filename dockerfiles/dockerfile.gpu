@@ -1,0 +1,8 @@
+FROM crosskd-test:v1
+
+WORKDIR /workspace
+COPY . .
+
+RUN chmod +x /workspace/gpucheck.py
+
+CMD ["python3", "-u", "/workspace/gpucheck.py"]

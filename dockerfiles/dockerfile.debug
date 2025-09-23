@@ -1,0 +1,9 @@
+FROM crosskd-debug:v1
+
+WORKDIR /workspace
+COPY . .
+
+WORKDIR /workspace//CrossKD
+
+RUN chmod -R a+rX /workspace && chmod +x ../test.py
+CMD ["python3", "../test.py"]

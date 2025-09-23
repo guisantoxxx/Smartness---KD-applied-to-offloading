@@ -1,0 +1,22 @@
+FROM crosskd-train:v3
+
+# Corrige SSL: instala certificados atualizados
+#RUN apt-get update && apt-get install -y --no-install-recommends \
+#    ca-certificates \
+#    && update-ca-certificates \
+#    && rm -rf /var/lib/apt/lists/*
+
+# Garante que requests/pip/torch usem os certificados corretos
+#ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+#ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+#ENV CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+
+WORKDIR /workspace
+COPY . .
+
+WORKDIR /workspace/CrossKD
+
+
+RUN chmod -R a+rX /workspace && chmod +x /workspace/CrossKD/tools/train.py
+
+CMD ["python3", "-u", "/workspace/CrossKD/tools/train.py", "/workspace/CrossKD/configs/crosskd+pkd/crosskd+pkd_r50_gflv1_r101-2x-ms_fpn_1x_coco.py", "--work-dir", "/proj/aurora/Smartness/checkpoints-pkd"]
