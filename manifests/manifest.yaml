@@ -1,19 +1,19 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: crosskd-cqi-loss-test
+  name: cqi-six-epochs-first
   namespace: aurora
 spec:
   template:
     metadata:
-      name: crosskd-cqi-loss-test
+      name: cqi-six-epochs-first
       labels:
         project: aurora
         erc-job-type: batch
     spec:
       containers:
       - name: crosskd-test
-        image: registry.researchcloud.internal.ericsson.com/egsinau-test/cqi-test:v1
+        image: registry.researchcloud.internal.ericsson.com/egsinau-test/cqi-six-epochs-gflv:v1
         volumeMounts:
         - name: tmp-volume
           mountPath: /tmp

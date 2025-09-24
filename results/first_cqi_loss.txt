@@ -1,0 +1,17 @@
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.387
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.559
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.418
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.216
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.423
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.509
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.572
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.572
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.572
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.348
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.622
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.745
+09/23 18:01:23 - mmengine - INFO - bbox_mAP_copypaste: 0.387 0.559 0.418 0.216 0.423 0.509
+09/23 18:01:23 - mmengine - INFO - Epoch(test) [5000/5000]    coco/bbox_mAP: 0.3870  coco/bbox_mAP_50: 0.5590  coco/bbox_mAP_75: 0.4180  coco/bbox_mAP_s: 0.2160  coco/bbox_mAP_m: 0.4230  coco/bbox_mAP_l: 0.5090  data_time: 0.0033  time: 0.2157
+
+Loss used: loss = L(p_s, p_gt) + H(p_s) * CQI * L(p_t, p_gt)
+Loss used: loss = L(p_s, p_gt) + H(p_s) * ((16 - CQI)/15) * L(p_t, p_gt)

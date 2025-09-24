@@ -19,4 +19,4 @@ WORKDIR /workspace/CrossKD
 
 RUN chmod -R a+rX /workspace && chmod +x /workspace/CrossKD/tools/train.py
 
-CMD ["python3", "-u", "/workspace/CrossKD/tools/train.py", "/workspace/CrossKD/configs/crosskd+pkd/crosskd+pkd_r50_gflv1_r101-2x-ms_fpn_1x_coco.py", "--work-dir", "/proj/aurora/Smartness/checkpoints-pkd"]
+CMD ["python3", "-u", "/workspace/CrossKD/tools/train.py", "/workspace/CrossKD/configs/crosskd+pkd/crosskd+pkd_r50_gflv1_r101-2x-ms_fpn_1x_coco.py", "--work-dir", "/proj/aurora/Smartness/checkpoints-mixed-training/GFLV-6-epochs", "--cfg-options", "train_cfg.max_epochs=6"]
