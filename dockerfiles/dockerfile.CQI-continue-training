@@ -7,4 +7,4 @@ WORKDIR /workspace/CrossKD
 
 RUN chmod -R a+rX /workspace && chmod +x /workspace/CrossKD/tools/train.py
 
-CMD ["python3", "-u", "/workspace/CrossKD/tools/train.py", "/workspace/CrossKD/configs/crosskd/gfl_test_config.py", "--work-dir", "/proj/aurora/Smartness/checkpoints-CQI-continued_training", "--resume", "/proj/aurora/Smartness/checkpoints-pkd/epoch_12.pth", "--cfg-options", "train_cfg.max_epochs=18"]
+CMD ["python3", "-u", "/workspace/CrossKD/tools/train.py", "/workspace/CrossKD/configs/crosskd/gfl_test_config.py", "--work-dir", "/proj/aurora/Smartness/checkpoints-mixed-training/Custom-CQI-12-epochs", "--resume", "/proj/aurora/Smartness/checkpoints-mixed-training/GFLV-6-epochs/epoch_6.pth", "--cfg-options", "train_cfg.max_epochs=12"]

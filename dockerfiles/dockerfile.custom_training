@@ -1,0 +1,10 @@
+FROM crosskd-test:v1
+
+WORKDIR /workspace
+COPY . .
+
+WORKDIR /workspace/
+
+RUN chmod -R a+rX /workspace && chmod +x /workspace/crosskd/CrossKD/tools/custom_test.py
+
+CMD ["python3", "-u", "/workspace/crosskd/CrossKD/tools/custom_test.py"]
