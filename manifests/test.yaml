@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: crosskd-test
-        image: registry.researchcloud.internal.ericsson.com/egsinau-test/custom-training:v1
+        image: registry.researchcloud.internal.ericsson.com/egsinau-test/custom-test-alt:v1
         volumeMounts:
         - name: tmp-volume
           mountPath: /tmp
@@ -48,7 +48,7 @@ spec:
               - key: nvidia.com/gpu.memory
                 operator: Gt
                 values:
-                - "40000"
+                - "10000"
       restartPolicy: Never
       imagePullSecrets:
       - name: egsinau

@@ -1,0 +1,16 @@
+FROM crosskd-train:v3
+
+# Define o diretório de trabalho
+WORKDIR /workspace
+COPY . .
+
+# Permissões corretas
+RUN chmod -R a+rX /workspace && \
+    chmod +x /workspace/crosskd/CrossKD/tools/custom_test.py
+
+WORKDIR /workspace/crosskd/CrossKD
+#RUN pip install -v -e .
+
+
+# Comando default
+CMD ["python3", "-u", "/workspace/crosskd/CrossKD/tools/custom_test.py"]
