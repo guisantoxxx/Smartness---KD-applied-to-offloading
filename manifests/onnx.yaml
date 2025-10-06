@@ -1,19 +1,19 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: debug-custom-test
+  name: onnx-converter
   namespace: aurora
 spec:
   template:
     metadata:
-      name: debug-custom-test
+      name: onnx-converter
       labels:
         project: aurora
         erc-job-type: batch
     spec:
       containers:
-      - name: crosskd-test
-        image: registry.researchcloud.internal.ericsson.com/egsinau-test/custom-test:v2
+      - name: onnx-converter
+        image: registry.researchcloud.internal.ericsson.com/egsinau-test/onnx-converter:v2
         volumeMounts:
         - name: tmp-volume
           mountPath: /tmp
@@ -45,10 +45,14 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
+              - key: nvidia.com/gpu.product
+                operator: In
+                values:
+                - NVIDIA-A30-MIG-4g.24gb
               - key: nvidia.com/gpu.memory
                 operator: Gt
                 values:
-                - "10000"
+                - "23000"
       restartPolicy: Never
       imagePullSecrets:
       - name: egsinau

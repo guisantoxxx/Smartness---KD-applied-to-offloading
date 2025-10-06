@@ -1,23 +1,4 @@
-FROM ubuntu:20.04
-
-# Evita prompts de instalação
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Atualiza o sistema e instala dependências básicas
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3.10 \
-    python3.10-venv \
-    python3-pip \
-    git \
-    wget \
-    curl \
-    ca-certificates \
-    build-essential \
-    libgl1-mesa-glx \
-    && rm -rf /var/lib/apt/lists/*
-
-# Atualiza pip
-RUN python3 -m pip install --upgrade pip
+FROM crosskd-train:v3
 
 # Define o diretório de trabalho
 WORKDIR /workspace
@@ -27,19 +8,13 @@ COPY . .
 RUN chmod -R a+rX /workspace && \
     chmod +x /workspace/crosskd/CrossKD/tools/custom_test.py
 
-# Instala PyTorch 1.12.1 + CUDA 11.3, torchvision 0.13.1, torchaudio 0.12.1
 RUN pip install --no-cache-dir \
-    torch==1.12.1+cu113 \
-    torchvision==0.13.1+cu113 \
-    torchaudio==0.12.1 \
-    -f https://download.pytorch.org/whl/torch_stable.html
-
-# Instala dependências exatas do paper para MMDetection
-RUN pip install --no-cache-dir \
-    mmcv==2.0.0rc4 \
-    mmengine==0.7.3 \
-    mmdet==3.0.0rc6
-
+    onnxruntime \
+    onnxruntime-gpu \
+    pycocotools \
+    tqdm \
+    opencv-python-headless \
+    numpy
 
 # Comando default
 CMD ["python3", "-u", "/workspace/crosskd/CrossKD/tools/custom_test.py"]
