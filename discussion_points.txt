@@ -1,0 +1,6 @@
+1) Os valores da entropia e do CQI estão muito baicos, menor que 0, reduzindo a loss do teacher. Em especial o da entropia, que esta na casa dos 0.00, o que praticamente zera a loss do teacher.
+   Nesse caso, na segunda etapa, praticamente só se considera  a loss entre student e gt.
+
+   Uma boa ideia pode ser uma forma diferente de calcular a entropia, afim de afastar o valor de 0.
+
+2) Atualmente estou trabalhando em como vonverter os modelos do mmdet para onnx, de forma que possamos embarcar esses modelos em componentes robótios e avalia-los de maneira independente

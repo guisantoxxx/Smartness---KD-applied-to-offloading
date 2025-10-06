@@ -1,5 +1,4 @@
 FROM crosskd-train:v3
-
 # Definir diretório de trabalho como o CrossKD
 WORKDIR /workspace/CrossKD
 
@@ -9,16 +8,12 @@ COPY crosskd/CrossKD /workspace/CrossKD
 # Copiar MMDeploy para dentro do workspace
 COPY mmdeploy /workspace/CrossKD/mmdeploy
 
+RUN pip install /workspace/CrossKD/mmdeploy && pip install "numpy<2"
+RUN pip uninstall -y onnxruntime onnxruntime-gpu && pip install onnxruntime-gpu==1.15.1
+
+
 # Garantir permissões
 RUN chmod -R a+rX /workspace/CrossKD
-
-RUN pip install --no-cache-dir --force-reinstall torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --index-url https://download.pytorch.org/whl/cu117
-RUN pip install onnx
-
-RUN pip install onnx aenum && \
-    pip install "numpy<2"
-
-ENV PYTHONPATH=/workspace/CrossKD/mmdeploy:$PYTHONPATH
 
 
 # Comando para exportar ONNX

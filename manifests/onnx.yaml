@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: onnx-converter
-        image: registry.researchcloud.internal.ericsson.com/egsinau-test/onnx-converter:v2
+        image: registry.researchcloud.internal.ericsson.com/egsinau-test/onnx-converter:v1
         volumeMounts:
         - name: tmp-volume
           mountPath: /tmp
