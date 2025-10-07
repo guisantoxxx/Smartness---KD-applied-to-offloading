@@ -21,6 +21,7 @@ CMD ["python3", "/workspace/CrossKD/mmdeploy/tools/deploy.py", \
      "mmdeploy/configs/mmdet/detection/detection_onnxruntime_dynamic.py", \
      "/proj/aurora/Smartness/checkpoints-GFLV1/crosskd_r50_gflv1_r101-2x-ms_fpn_1x_coco.py", \
      "/proj/aurora/Smartness/checkpoints-GFLV1/epoch_12.pth", \
-     "demo/demo.jpg", \
+     "/proj/aurora/Smartness/data/coco/test2017/000000290680.jpg", \
      "--work-dir", "/proj/aurora/Smartness/checkpoints-GFLV1/onnx_temp", \
-     "--device", "cuda:0"]
+     "--device", "cpu", \
+     "--dump-info"]

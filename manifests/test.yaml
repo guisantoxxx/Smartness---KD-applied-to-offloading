@@ -1,19 +1,19 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: debug-custom-test
+  name: custom-test
   namespace: aurora
 spec:
   template:
     metadata:
-      name: debug-custom-test
+      name: custom-test
       labels:
         project: aurora
         erc-job-type: batch
     spec:
       containers:
       - name: crosskd-test
-        image: registry.researchcloud.internal.ericsson.com/egsinau-test/custom-test:v2
+        image: registry.researchcloud.internal.ericsson.com/egsinau-test/custom-test:v1
         volumeMounts:
         - name: tmp-volume
           mountPath: /tmp
