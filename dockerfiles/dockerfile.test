@@ -19,9 +19,9 @@ COPY mmdeploy /workspace/CrossKD/mmdeploy
 # Atualizar pip
 #RUN pip3 install --upgrade pip
 
-RUN python3 -m pip uninstall -y onnxruntime onnxruntime-gpu && \
-    python3 -m pip install --no-cache-dir onnxruntime-gpu==1.16.1 --extra-index-url https://download.pytorch.org/whl/cu117 && \
-    python3 -m pip install --no-cache-dir opencv-python-headless==4.8.1.78
+#RUN python3 -m pip uninstall -y onnxruntime onnxruntime-gpu && \
+#    python3 -m pip install --no-cache-dir onnxruntime-gpu==1.16.1 --extra-index-url https://download.pytorch.org/whl/cu117 && \
+#    python3 -m pip install --no-cache-dir opencv-python-headless==4.8.1.78
 
 
 ENV CONDA_PREFIX=/opt/conda
