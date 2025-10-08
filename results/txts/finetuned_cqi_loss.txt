@@ -12,3 +12,5 @@
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.764
 10/02 11:44:14 - mmengine - INFO - bbox_mAP_copypaste: 0.427 0.606 0.464 0.242 0.470 0.566
 10/02 11:44:15 - mmengine - INFO - Epoch(val) [12][5000/5000]    coco/bbox_mAP: 0.4270  coco/bbox_mAP_50: 0.6060  coco/bbox_mAP_75: 0.4640  coco/bbox_mAP_s: 0.2420  coco/bbox_mAP_m: 0.4700  coco/bbox_mAP_l: 0.5660  data_time: 0.0052  time: 0.2264
+
+usar MeanAvgPrecision

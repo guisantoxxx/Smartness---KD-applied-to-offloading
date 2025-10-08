@@ -1,0 +1,48 @@
+# Base: Ubuntu 20.04 com CUDA 12.2 Runtime
+FROM nvidia/cuda:12.2.0-runtime-ubuntu20.04
+
+# Diretório de trabalho
+WORKDIR /workspace/CrossKD
+
+# Instalar dependências básicas e de compilação
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3 python3-pip python3-setuptools ca-certificates \
+        git wget curl build-essential cmake ninja-build libopencv-dev \
+        libprotobuf-dev protobuf-compiler && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar projeto CrossKD e MMDeploy
+COPY crosskd/CrossKD /workspace/CrossKD
+COPY mmdeploy /workspace/CrossKD/mmdeploy
+
+# Atualizar pip
+RUN pip3 install --upgrade pip
+
+# Instalar runtime ONNX e dependências Python
+RUN pip3 install --no-cache-dir \
+        onnxruntime-gpu==1.16.1 \
+        opencv-python-headless==4.8.1.78 \
+        pycocotools
+
+# Compilar MMDeploy runtime para CUDA 12
+WORKDIR /workspace/CrossKD/mmdeploy
+RUN mkdir -p build && cd build && \
+    cmake .. \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr/local/mmdeploy \
+        -DENABLE_CUDA=ON \
+        -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda && \
+    make -j$(nproc) && make install
+
+# Garantir permissões corretas
+RUN chmod -R 755 /workspace/CrossKD
+
+# Variáveis de ambiente CUDA, ONNX e MMDeploy
+ENV CONDA_PREFIX=/opt/conda
+ENV CUDA_HOME=/usr/local/cuda
+ENV MMDEPLOY_HOME=/usr/local/mmdeploy
+ENV LD_LIBRARY_PATH=$MMDEPLOY_HOME/lib:/usr/local/cuda/lib64:/usr/local/lib/python3.8/dist-packages/onnxruntime:$LD_LIBRARY_PATH
+ENV PATH=$MMDEPLOY_HOME/bin:/usr/local/cuda/bin:$PATH
+
+# Comando padrão
+CMD ["python3", "-u", "tools/custom_test.py"]

@@ -4,3 +4,9 @@
    Uma boa ideia pode ser uma forma diferente de calcular a entropia, afim de afastar o valor de 0.
 
 2) Atualmente estou trabalhando em como vonverter os modelos do mmdet para onnx, de forma que possamos embarcar esses modelos em componentes robótios e avalia-los de maneira independente
+
+To do next:
+
+ - Inserir o MeanAvgPrecision no meu script personalizado
+
+ - plotar a loss total, loss student, loss teacher, CQI e entropia em uma curva para ver como evolui com o tempo

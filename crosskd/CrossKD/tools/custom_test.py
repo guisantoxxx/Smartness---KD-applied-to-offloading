@@ -1,5 +1,6 @@
 import os
 import json
+import time
 from mmdeploy_runtime import Detector
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
@@ -20,8 +21,7 @@ out_json = '/proj/aurora/Smartness/custom_test/GFLV1-12_epochs-results.json'
 # ----------------------------
 # Inicializar modelo ONNX via MMDeploy Runtime
 # ----------------------------
-# Forçar CPU
-model = Detector(model_path=onnx_model, device_name='cuda')
+model = Detector(model_path=onnx_model, device_name='cpu')
 
 # ----------------------------
 # Carregar COCO
@@ -34,8 +34,10 @@ results = []
 # ----------------------------
 # Inferência
 # ----------------------------
-img_ids = coco.getImgIds()[:100]  # apenas 100 imagens para teste
-for img_info in coco.loadImgs(img_ids):
+img_ids = coco.getImgIds()
+start_time = time.time()
+
+for idx, img_info in enumerate(coco.loadImgs(img_ids), 1):
     img_path = os.path.join(coco_img_dir, img_info['file_name'])
 
     # Carregar imagem como RGB
@@ -58,6 +60,14 @@ for img_info in coco.loadImgs(img_ids):
             "score": float(score)
         })
 
+    # Print de progresso a cada 100 imagens
+    if idx % 10 == 0:
+        print(f"Processadas {idx}/{len(img_ids)} imagens...")
+
+# Tempo médio por imagem
+elapsed_time = time.time() - start_time
+time_per_image = elapsed_time / len(img_ids)
+
 # ----------------------------
 # Salvar resultados
 # ----------------------------
@@ -73,3 +83,20 @@ coco_eval = COCOeval(coco, coco_dt, 'bbox')
 coco_eval.evaluate()
 coco_eval.accumulate()
 coco_eval.summarize()
+
+# ----------------------------
+# Print estilo MMEngine
+# ----------------------------
+# stats indices:
+# [0] mAP, [1] mAP_50, [2] mAP_75, [3] mAP_small, [4] mAP_medium, [5] mAP_large
+stats = coco_eval.stats
+print(
+    f"coco/bbox_mAP: {stats[0]:.4f}  "
+    f"coco/bbox_mAP_50: {stats[1]:.4f}  "
+    f"coco/bbox_mAP_75: {stats[2]:.4f}  "
+    f"coco/bbox_mAP_s: {stats[3]:.4f}  "
+    f"coco/bbox_mAP_m: {stats[4]:.4f}  "
+    f"coco/bbox_mAP_l: {stats[5]:.4f}  "
+    f"data_time: {time_per_image:.4f}  "
+    f"time: {time_per_image:.4f}"
+)

@@ -1,19 +1,19 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: custom-test-cpu
+  name: custom-test-gpu
   namespace: aurora
 spec:
   template:
     metadata:
-      name: custom-test-cpu
+      name: custom-test-gpu
       labels:
         project: aurora
         erc-job-type: batch
     spec:
       containers:
       - name: crosskd-test
-        image: registry.researchcloud.internal.ericsson.com/egsinau-test/custom-test:v1
+        image: registry.researchcloud.internal.ericsson.com/egsinau-test/custom-test-gpu:v1
         volumeMounts:
         - name: tmp-volume
           mountPath: /tmp
@@ -45,14 +45,10 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: nvidia.com/gpu.product
-                operator: In
-                values:
-                - NVIDIA-A30-MIG-4g.24gb
               - key: nvidia.com/gpu.memory
                 operator: Gt
                 values:
-                - "23000"
+                - "10000"
       restartPolicy: Never
       imagePullSecrets:
       - name: egsinau
