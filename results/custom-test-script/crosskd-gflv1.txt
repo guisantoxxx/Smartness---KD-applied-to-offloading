@@ -1,0 +1,14 @@
+DONE (t=4.10s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.376
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.533
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.407
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.216
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.417
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.506
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.326
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.524
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.554
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.335
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.597
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.730
+coco/bbox_mAP: 0.3755  coco/bbox_mAP_50: 0.5331  coco/bbox_mAP_75: 0.4071  coco/bbox_mAP_s: 0.2156  coco/bbox_mAP_m: 0.4167  coco/bbox_mAP_l: 0.5062  data_time: 10.2209  time: 10.2209

@@ -1,18 +1,18 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: onnx-converter
+  name: onnx-converter-teacher
   namespace: aurora
 spec:
   template:
     metadata:
-      name: onnx-converter
+      name: onnx-converter-teacher
       labels:
         project: aurora
         erc-job-type: batch
     spec:
       containers:
-      - name: onnx-converter
+      - name: onnx-converter-finetuned-model
         image: registry.researchcloud.internal.ericsson.com/egsinau-test/onnx-converter:v1
         volumeMounts:
         - name: tmp-volume
